@@ -18,23 +18,31 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.2.2' // Usar una versión consistente
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+	// Controladores de base de datos
 	runtimeOnly 'org.postgresql:postgresql'
+
+	// JWT para autenticación basada en tokens
+	implementation 'io.jsonwebtoken:jjwt:0.9.1' // Usar una única versión de JJWT
+
+	// JAXB
+	implementation "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1" // Usar la versión más reciente
+	implementation "org.glassfish.jaxb:jaxb-runtime:3.0.1"
+
+	// Seguridad
+	implementation 'org.springframework.security:spring-security-crypto:6.0.1' // Versión consistente
+	implementation 'org.springframework.security:spring-security-config:6.2.2' // Configuración de seguridad
+
+	// Dependencias para pruebas
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto
-	implementation 'org.springframework.security:spring-security-crypto:6.3.3'
-
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
-	implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
-	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
 }
 

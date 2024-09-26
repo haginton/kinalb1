@@ -75,6 +75,7 @@ public class UserMongoRepositoryImpl implements UserRepository {
     public UserRepositoryDto findByEmail(String email) {
         Optional<UserMongo> userFound = userRepositoryMongo.findByEmail(email);
         if (userFound.isPresent()){
+            System.out.println("userMongoFound: " + userFound.get());
             return DataMapper.convertUserMongoToUserRepositoryDto(userFound.get());
         }else{
             return null;

@@ -128,13 +128,14 @@ public class UserMongo {
 
     @Override
     public String toString() {
-        return "User{" +
-                "idUser=" + idUser +
+        return "UserMongo{" +
+                "idUser='" + idUser + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", dateCreation=" + dateCreation +
                 ", dateUpdate=" + dateUpdate +
+                ", roles=" + roles +
                 '}';
     }
 }

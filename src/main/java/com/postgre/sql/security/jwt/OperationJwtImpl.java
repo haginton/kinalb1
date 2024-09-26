@@ -4,8 +4,7 @@ import com.postgre.sql.dto.user.UserRepositoryDto;
 import com.postgre.sql.model.sql.User;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,18 +21,19 @@ public class OperationJwtImpl implements OperationJwt{
     @Override
     public String generateToken(UserRepositoryDto user, Calendar calendar) {
         return Jwts.builder()
-                .subject(String.valueOf(user.getIdUser()))
+                .setSubject(String.valueOf(user.getIdUser()))
                 .claim("User", user.getUsername())
-                .issuedAt(new Date())
-                .expiration(calendar.getTime())
-                .signWith(generateKey(), Jwts.SIG.HS256)
+                .claim("ada_roles", user.getRoles())
+                .setIssuedAt(new Date())
+                .setExpiration(calendar.getTime())
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact()
                 ;
 
     }
 
-    private SecretKey generateKey(){
+    /*private SecretKey generateKey(){
         byte[] passwordDecoded = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(passwordDecoded);
-    }
+    }*/
 }

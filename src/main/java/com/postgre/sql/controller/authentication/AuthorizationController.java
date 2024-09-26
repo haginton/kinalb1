@@ -34,6 +34,7 @@ public class AuthorizationController {
     @PostMapping
     public ResponseEntity<TokenDto> generationJwt(@RequestBody LoginDto loginDto){
         UserRepositoryDto userFound = userService.findByEmail(loginDto.getEmail());
+        System.out.println("userFound: " + userFound);
         if (userFound != null){
             TokenDto tokenDto = new TokenDto();
             Calendar durationToken = Calendar.getInstance();

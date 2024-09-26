@@ -42,7 +42,8 @@ public class DataMapper {
                 userMongo.getPassword(),
                 userMongo.getEmail(),
                 userMongo.getDateCreation(),
-                userMongo.getDateUpdate()
+                userMongo.getDateUpdate(),
+                userMongo.getRoles()
         );
     }
 
