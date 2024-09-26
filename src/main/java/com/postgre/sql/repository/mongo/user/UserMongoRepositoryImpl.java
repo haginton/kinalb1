@@ -35,14 +35,14 @@ public class UserMongoRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserRepositoryDto createUser(User user) {
+    public UserRepositoryDto createUser(UserRepositoryDto user) {
         return DataMapper.convertUserMongoToUserRepositoryDto(userRepositoryMongo.save(
-                DataMapper.convertUserToUserMongo(user)
+                new UserMongo(user)
         ));
     }
 
     @Override
-    public Boolean updateUser(String idUser, User user) {
+    public Boolean updateUser(String idUser, UserRepositoryDto user) {
         Optional<UserMongo> userMongoOptional = userRepositoryMongo.findById(String.valueOf(idUser));
 
         if (userMongoOptional.isPresent()){

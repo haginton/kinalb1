@@ -1,6 +1,7 @@
 package com.postgre.sql.model.sql;
 
 import com.postgre.sql.dto.user.UserRegisterDto;
+import com.postgre.sql.dto.user.UserRepositoryDto;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -53,6 +54,18 @@ public class User implements Serializable {
         this.dateUpdate = LocalDateTime.now();
     }
 
+    public User(UserRepositoryDto userRepositoryDto) {
+        this.username = userRepositoryDto.getUsername();
+        System.out.println("Password user 2 "+ userRepositoryDto.getPassword());
+        this.password = new BCryptPasswordEncoder().encode(userRepositoryDto.getPassword());
+        System.out.println("Constructor user 2 "+ this.password);
+        this.email = userRepositoryDto.getEmail();
+        this.dateCreation = LocalDateTime.now();
+        this.dateUpdate = LocalDateTime.now();
+    }
+
+
+
     public Long getIdUser() {
         return idUser;
     }
@@ -89,9 +102,9 @@ public class User implements Serializable {
         return dateUpdate;
     }
 
-    public void updateUser(User user){
+    public void updateUser(UserRepositoryDto user){
         setUsername(user.getUsername());
-        setPassword(user.getPassword());
+        setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         setEmail(user.getEmail());
         this.dateUpdate = LocalDateTime.now();
     }

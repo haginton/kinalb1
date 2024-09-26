@@ -31,12 +31,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserRepositoryDto createUser(User user) {
-        return DataMapper.convertUserToUserRepositoryDto(userRepositoryJpa.save(user));
+    public UserRepositoryDto createUser(UserRepositoryDto user) {
+        return DataMapper.convertUserToUserRepositoryDto(userRepositoryJpa.save(new User(user)));
     }
 
     @Override
-    public Boolean updateUser(String idUser, User user) {
+    public Boolean updateUser(String idUser, UserRepositoryDto user) {
         User userFound = userRepositoryJpa.findById(Long.parseLong(idUser)).get();
         if (userFound != null){
             userFound.updateUser(user);

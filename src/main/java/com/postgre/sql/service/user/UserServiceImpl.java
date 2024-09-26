@@ -38,12 +38,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserCreatedDto createUser(UserRegisterDto user) {
-        return new UserCreatedDto(userRepository.createUser(new User(user)));
+        return new UserCreatedDto(userRepository.createUser(new UserRepositoryDto(user)));
     }
 
     @Override
     public Boolean updateUser(String idUser, UserRegisterDto user) {
-        return userRepository.updateUser(idUser, new User(user));
+        return userRepository.updateUser(idUser, new UserRepositoryDto(user));
     }
 
     @Override

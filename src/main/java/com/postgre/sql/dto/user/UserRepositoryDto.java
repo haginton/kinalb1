@@ -38,6 +38,12 @@ public class UserRepositoryDto implements Serializable {
         this.dateUpdate = dateUpdate;
     }
 
+    public UserRepositoryDto(UserRegisterDto userRegisterDto) {
+        this.username = userRegisterDto.getUsername();
+        this.password = userRegisterDto.getPassword();
+        this.email = userRegisterDto.getEmail();
+    }
+
     public String getIdUser() {
         return idUser;
     }

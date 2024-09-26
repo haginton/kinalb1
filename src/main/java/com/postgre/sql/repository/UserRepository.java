@@ -9,8 +9,8 @@ public interface UserRepository {
 
     List<UserRepositoryDto> getAllUsers();
     UserRepositoryDto findUserById(String idUser);
-    UserRepositoryDto createUser(User user);
-    Boolean updateUser(String idUser, User user);
+    UserRepositoryDto createUser(UserRepositoryDto user);
+    Boolean updateUser(String idUser, UserRepositoryDto user);
     Boolean deleteUser(String idUser);
     UserRepositoryDto findByEmail(String email);
 }

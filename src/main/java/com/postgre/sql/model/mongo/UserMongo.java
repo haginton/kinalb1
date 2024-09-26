@@ -1,6 +1,7 @@
 package com.postgre.sql.model.mongo;
 
 import com.postgre.sql.dto.user.UserRegisterDto;
+import com.postgre.sql.dto.user.UserRepositoryDto;
 import com.postgre.sql.model.RoleEnum;
 import com.postgre.sql.model.sql.User;
 import org.bson.types.ObjectId;
@@ -43,12 +44,12 @@ public class UserMongo {
         this.roles = new ArrayList<>(Collections.singleton(RoleEnum.USER));
     }
 
-    public UserMongo(UserRegisterDto userRegisterDto) {
-        this.username = userRegisterDto.getUsername();
-        System.out.println("Password userMongo 1 "+ userRegisterDto.getPassword());
-        this.password = new BCryptPasswordEncoder().encode(userRegisterDto.getPassword());
+    public UserMongo(UserRepositoryDto userRepositoryDto) {
+        this.username = userRepositoryDto.getUsername();
+        System.out.println("Password userMongo 1 "+ userRepositoryDto.getPassword());
+        this.password = new BCryptPasswordEncoder().encode(userRepositoryDto.getPassword());
         System.out.println("Constructor 2 " + this.password);
-        this.email = userRegisterDto.getEmail();
+        this.email = userRepositoryDto.getEmail();
         this.dateCreation = LocalDateTime.now();
         this.dateUpdate = LocalDateTime.now();
         this.roles = new ArrayList<>(Collections.singleton(RoleEnum.USER));
@@ -98,9 +99,9 @@ public class UserMongo {
         return dateUpdate;
     }
 
-    public void updateUser(User user){
+    public void updateUser(UserRepositoryDto user){
         setUsername(user.getUsername());
-        setPassword(user.getPassword());
+        setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         setEmail(user.getEmail());
         this.dateUpdate = LocalDateTime.now();
     }
