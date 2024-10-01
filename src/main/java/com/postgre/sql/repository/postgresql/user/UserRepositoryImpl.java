@@ -2,12 +2,15 @@ package com.postgre.sql.repository.postgresql.user;
 
 import com.postgre.sql.dto.mapper.DataMapper;
 import com.postgre.sql.dto.user.UserRepositoryDto;
+import com.postgre.sql.model.sql.Rol;
 import com.postgre.sql.model.sql.User;
 
 import com.postgre.sql.repository.UserRepository;
+import com.postgre.sql.repository.postgresql.rol.RolRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +20,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private UserRepositoryJpa userRepositoryJpa;
+
+    @Autowired
+    private RolRepositoryJpa rolRepositoryJpa;
 
     @Override
     public List<UserRepositoryDto> getAllUsers() {
@@ -32,7 +38,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserRepositoryDto createUser(UserRepositoryDto user) {
-        return DataMapper.convertUserToUserRepositoryDto(userRepositoryJpa.save(new User(user)));
+        Optional<Rol> defaultRole = rolRepositoryJpa.findById(1L);
+        User userToCreate = new User(user);
+        userToCreate.setRoles(Collections.singletonList(defaultRole.get()));
+        return DataMapper.convertUserToUserRepositoryDto(userRepositoryJpa.save(userToCreate));
     }
 
     @Override

@@ -2,9 +2,13 @@ package com.postgre.sql.dto.mapper;
 
 import com.postgre.sql.dto.purchase.PurchaseRepositoryDto;
 import com.postgre.sql.dto.user.UserRepositoryDto;
+import com.postgre.sql.model.RoleEnum;
 import com.postgre.sql.model.mongo.UserMongo;
 import com.postgre.sql.model.sql.Purchase;
 import com.postgre.sql.model.sql.User;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DataMapper {
 
@@ -25,13 +29,19 @@ public class DataMapper {
     }
 
     public static UserRepositoryDto convertUserToUserRepositoryDto(User user){
+
+        List<RoleEnum> roleEnums = user.getRoles().stream()
+                .map(rol -> RoleEnum.valueOf(rol.getRol()))  // Asegúrate de que el método getRol() retorne el nombre correcto del rol
+                .collect(Collectors.toList());
+
         return new UserRepositoryDto(
                 String.valueOf(user.getIdUser()),
                 user.getUsername(),
                 user.getPassword(),
                 user.getEmail(),
                 user.getDateCreation(),
-                user.getDateUpdate()
+                user.getDateUpdate(),
+                roleEnums
         );
     }
 

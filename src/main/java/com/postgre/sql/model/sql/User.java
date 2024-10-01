@@ -31,6 +31,15 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Purchase> purchases;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_role")
+    )
+
+    private List<Rol> roles;
+
     public User() {
     }
 
@@ -65,6 +74,13 @@ public class User implements Serializable {
     }
 
 
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
+    }
 
     public Long getIdUser() {
         return idUser;
